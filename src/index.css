@@ -459,7 +459,7 @@ header h2 {
   width: 100%;
   max-width: 340px;
   text-align: justify;
-  margin: 20px;
+  margin: 50px;
 }
 
 @media screen and (min-width: 768px) {

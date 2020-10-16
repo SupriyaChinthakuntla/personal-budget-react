@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Pie} from "react-chartjs-2";
+import D3ChartPage from '../D3ChartPage/D3ChartPage';
 
 const HomePage = () => {
   const [chartData, setChartData] = useState({});
+  const [data, setData] = useState({});
+
   const chart = () => {
     let budgetTitle = [];
     let budgetValue = [];
@@ -12,7 +15,9 @@ const HomePage = () => {
       for (var i = 0; i< res.data.myBudget.length; i++) {
        budgetTitle.push(res.data.myBudget[i].title);
        budgetValue.push(res.data.myBudget[i].budget);
+  
       }
+      setData(res.data.myBudget);
     setChartData({
       labels: budgetTitle,
       datasets: [
@@ -40,7 +45,7 @@ const HomePage = () => {
 
   useEffect(() => {
     chart();
-  }, []);
+  }, [!data]);
   return (
     <div className="container center">
 
@@ -71,15 +76,18 @@ const HomePage = () => {
             </p>
         </article>
 
-        <article aria-label="free"> 
+        <article> 
             <h1>Chart</h1>
-            <div style={{height:"600px",width:"600px"}}>
+            <div style={{height:"375px",width:"700px"}}>
                 <Pie data = {chartData} />
             </div>
-    </article>
-    <div aria-label="donutChart"> 
-        <h1>DonutChart</h1>
-</div>
+    </article >
+    <article> 
+    <h1>DonutChart</h1>
+    <D3ChartPage>
+          data={data}
+      </D3ChartPage>
+    </article> 
     </div>
 </div>
   )
